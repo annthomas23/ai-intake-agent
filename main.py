@@ -58,7 +58,6 @@ async def send_email(to_email: str, subject: str, body: str):
     message.set_content(body)
     logger.debug("After setting variables")
 
-    # Gmail SMTP example — use your email server details here
     try:
         logger.debug("Trying to send email")
         await aiosmtplib.send(
@@ -67,7 +66,7 @@ async def send_email(to_email: str, subject: str, body: str):
             port=587,
             start_tls=True,
             username="annvthomas23@gmail.com",
-            password=pwd,  # MUST be an app password if 2FA is on
+            password=pwd,  
         )
         logger.info(f"Email sent to {to_email}")
     except Exception as e:
@@ -112,11 +111,6 @@ async def collect_name(args: FlowArgs) -> PatientInfo:
     logger.debug(args)
 
 
-    # patient.full_name = full_name
-    # logger.debug(f"Created name in patient object")
-    # args["patient_info"] = patient
-    # logger.debug(f"Created added patient object to args")
-
     name = {
         "first_name": first_name,
         "last_name": last_name,
@@ -132,7 +126,6 @@ async def collect_dob(args: FlowArgs) -> PatientInfo:
     dob = args["dob"]
     logger.debug(f"collect_dob handler executing with dob: {dob}")
     logger.debug(args)
-    # save_user_info(args)
     return PatientInfo(dob=dob)
 
 async def collect_insurance_info(args: FlowArgs) -> PatientInfo:
@@ -164,18 +157,15 @@ async def collect_referral(args: FlowArgs) -> PatientInfo:
 async def collect_complaint(args: FlowArgs) -> PatientInfo:
     complaint = args["complaint"]
     logger.debug(f"collect_complaint handler executing with dob: {complaint}")
-    # save_user_info(args)
     return PatientInfo(complaint=complaint)
 
 async def collect_complaint(args: FlowArgs) -> PatientInfo:
     complaint = args["complaint"]
     logger.debug(f"collect_complaint handler executing with dob: {complaint}")
-    # save_user_info(args)
     return PatientInfo(complaint=complaint)
 async def collect_address(args: FlowArgs) -> PatientInfo:
     address = args["address"]
     logger.debug(f"collect_address handler executing with dob: {address}")
-    # save_user_info(args)
     return PatientInfo(address=address)
 
 async def collect_contact(args: FlowArgs) -> PatientInfo:
@@ -624,7 +614,7 @@ async def save_audio(server_name: str, audio: bytes, sample_rate: int, num_chann
     else:
         logger.info("No audio data to save")
 
-async def test_bot(websocket_client: WebSocket, stream_sid: str, call_sid: str, testing: bool):
+async def run_bot(websocket_client: WebSocket, stream_sid: str, call_sid: str, testing: bool):
 
     
     serializer = TwilioFrameSerializer(
@@ -654,7 +644,8 @@ async def test_bot(websocket_client: WebSocket, stream_sid: str, call_sid: str, 
 
     tts = CartesiaTTSService(
         api_key=os.getenv("CARTESIA_API_KEY"),
-        voice_id="71a7ad14-091c-4e8e-a314-022ece01c121",  # British Reading Lady
+        voice_id="f786b574-daa5-4673-aa0c-cbe3e8534c02"
+        # voice_id="71a7ad14-091c-4e8e-a314-022ece01c121",  # British Reading Lady
     )
 
     context = OpenAILLMContext()
@@ -705,10 +696,10 @@ async def test_bot(websocket_client: WebSocket, stream_sid: str, call_sid: str, 
     async def on_client_disconnected(transport, client):
         await task.cancel()
 
-    @audiobuffer.event_handler("on_audio_data")
-    async def on_audio_data(buffer, audio, sample_rate, num_channels):
-        server_name = f"server_{websocket_client.client.port}"
-        await save_audio(server_name, audio, sample_rate, num_channels)
+    # @audiobuffer.event_handler("on_audio_data")
+    # async def on_audio_data(buffer, audio, sample_rate, num_channels):
+    #     server_name = f"server_{websocket_client.client.port}"
+    #     await save_audio(server_name, audio, sample_rate, num_channels)
 
 
     runner = PipelineRunner(handle_sigint=False, force_gc=True)
