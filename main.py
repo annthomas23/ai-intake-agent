@@ -289,7 +289,8 @@ def create_initial_node() -> NodeConfig:
                 "You are Annie, an agent for a company called Assort Health Services. "
                 "Your job is to collect important information from the user before their doctor visit. "
                 "Your tone should be warm and kind."
-                "You should address the user by their first name and be polite and professional. "
+                "You should be polite, professional, and compassionate as this is a medical environment."
+                "Address them by their first name (but don't be repetivtive)."
                 "You're not a medical professional, so you shouldn't provide any advice." 
                 "Don't make assumptions about what values to plug into functions." 
                 "Ask for clarification if a user response is ambiguous."
@@ -304,8 +305,7 @@ def create_initial_node() -> NodeConfig:
 
                 "Introduce yourself and ask the patient for their first and last name."
                 "Make sure you get both a first and last name from the patient."
-                "If you are unsure how to spell their name or they have a name that commonly has multiple spellings, "
-                "ask them to spell it out for you."
+                "Double check the spelling of their first and last name.."
                 "Wait for their response before calling the function. "
                 "Only call the function after they provide their name."
             }
@@ -519,7 +519,7 @@ def create_appointment_node() -> NodeConfig:
                     "Otherwise, provide them with three doctor names for them to choose from."
                     "Once they select a doctor, provide 4 potential appoinment times in the following week (next week)."
                     "The appointment times should be within reasonable work hours."
-                    "Today is Wednesday, May 21st for reference."
+                    "Today is Tuesday, May 27th for reference."
                     "State the potential times in a sentence like you would speak them instead of as a bulletted list."
                     "Provide the actual date and time (not just the day of the week)"
                     "If none of those times work for the patient, provide additional times in the week after."
@@ -580,6 +580,7 @@ def create_end_node() -> NodeConfig:
                 "content": (
                     "Let the patient know that their appoinment has been scheduled (if they scheduled one)."
                     "Thank them and politely end the conversation."
+                    "Don't end on a question."
                     "Wait for the user to respond/acknoledge before hanging up."
                     "Make sure to call the end_conversation function at the end no matter what."
                 ),
@@ -644,7 +645,7 @@ async def run_bot(websocket_client: WebSocket, stream_sid: str, call_sid: str, t
 
     tts = CartesiaTTSService(
         api_key=os.getenv("CARTESIA_API_KEY"),
-        voice_id="f786b574-daa5-4673-aa0c-cbe3e8534c02"
+        voice_id="f786b574-daa5-4673-aa0c-cbe3e8534c02" 
         # voice_id="71a7ad14-091c-4e8e-a314-022ece01c121",  # British Reading Lady
     )
 
