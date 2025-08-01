@@ -1,5 +1,10 @@
 # ai-intake-agent
-Ai Intake Agent using Gemini, 
+Ai Intake Agent using the following:
+- Gemini (LLM)
+- Cartesia (STT)
+- Deepgram (TTS)
+- Pipecat
+- Twilio
 
 Twilio phone number: (844) 945-3085
 
