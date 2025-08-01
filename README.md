@@ -1,5 +1,5 @@
 # ai-intake-agent
-Assort Health take home assignment
+Ai Intake Agent using Gemini, 
 
 Twilio phone number: (844) 945-3085
 
